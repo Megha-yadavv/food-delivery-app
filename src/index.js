@@ -9,7 +9,7 @@ import StoreContextProvider from './Context/StoreContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StoreContextProvider>
-     <BrowserRouter>
+     <BrowserRouter basename={process.env.PUBLIC_URL}>
    <App />
   </BrowserRouter>
   </StoreContextProvider>
