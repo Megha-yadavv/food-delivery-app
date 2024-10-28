@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { HashRouter } from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import StoreContextProvider from "./Context/StoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StoreContextProvider>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename='/food-delivery-app'>
       <App />
     </BrowserRouter>
   </StoreContextProvider>
