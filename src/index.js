@@ -1,19 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from 'react-router-dom'
-import StoreContextProvider from './Context/StoreContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { HashRouter } from "react-router-dom";
+import StoreContextProvider from "./Context/StoreContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StoreContextProvider>
-     <BrowserRouter basename={process.env.PUBLIC_URL}>
-   <App />
-  </BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <App />
+    </BrowserRouter>
   </StoreContextProvider>
- 
 );
 
 // If you want to start measuring performance in your app, pass a function
