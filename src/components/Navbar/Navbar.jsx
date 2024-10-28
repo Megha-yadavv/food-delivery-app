@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useRef} from "react";
 import { useState } from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +6,7 @@ import {
   faMagnifyingGlass,
   faCartShopping,faBars,faXmark
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 
@@ -15,10 +15,11 @@ const Navbar = ({ setShowLogin }) => {
   const {cartTotal, totalItemInCart} = useContext(StoreContext);
   const[showMenu, setShowMenu] = useState(true);
   const[sideMenu, setSideMenu] = useState(false);
-
+ const navigate = useNavigate();
+ const navbarRef = useRef(null);
 
   return (
-    <div className="navbar">
+    <div className="navbar" id="navbar" ref={navbarRef}>
       <Link to='/'>
         <h2 className="logo">FlavourFusion.</h2>
          <div className="menu-bar">
@@ -27,12 +28,22 @@ const Navbar = ({ setShowLogin }) => {
          </div>
       </Link>
       <ul className={sideMenu?"side-menu":"navbar-menu"}>
-        <Link
-          to="/"
-          onClick={() => setMenu("Home")}
-          className={menu === "Home" ? "active" : ""}
-        >
+      <Link
+  onClick={() => {
+    setMenu("Home");
+    if (sideMenu) {
+      
+      navbarRef.current.scrollIntoView({ behavior: "smooth" }); 
+    } else {
+     
+      navigate('/');
+    }
+  }}
+  className={menu === "Home" ? "active" : ""}
+>
+       
           Home
+         
         </Link>
         <a
           href="#explore-menu"
