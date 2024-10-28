@@ -4,7 +4,7 @@ import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
-  faCartShopping,
+  faCartShopping,faBars,faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -13,14 +13,20 @@ import { StoreContext } from "../../Context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("Home");
   const {cartTotal, totalItemInCart} = useContext(StoreContext);
+  const[showMenu, setShowMenu] = useState(true);
+  const[sideMenu, setSideMenu] = useState(false);
 
 
   return (
     <div className="navbar">
       <Link to='/'>
         <h2 className="logo">FlavourFusion.</h2>
+         <div className="menu-bar">
+          { showMenu?<FontAwesomeIcon icon={faBars} className="menu-button" onClick={()=>{setShowMenu(false);setSideMenu(true)}} />:''}
+         {sideMenu?<FontAwesomeIcon icon={faXmark} className="close-menu-button" onClick={()=>{setShowMenu(true);setSideMenu(false)} }/>:''}
+         </div>
       </Link>
-      <ul className="navbar-menu">
+      <ul className={sideMenu?"side-menu":"navbar-menu"}>
         <Link
           to="/"
           onClick={() => setMenu("Home")}
