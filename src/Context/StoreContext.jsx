@@ -6,6 +6,8 @@ export const StoreContext = createContext(null)
 const StoreContextProvider =(props)=>{
     
   const[cartItem, setCartItem] = useState({});
+  const[showMenu, setShowMenu] = useState(true);
+  const[sideMenu, setSideMenu] = useState(false);
 
  const addToCart = (itemId) =>{
      if(!cartItem[itemId]){
@@ -50,7 +52,10 @@ const StoreContextProvider =(props)=>{
         addToCart,
         removeFromCart,
         cartTotal,
-        totalItemInCart
+        totalItemInCart,
+        showMenu, setShowMenu,
+        sideMenu, setSideMenu
+
 
     }
     return(

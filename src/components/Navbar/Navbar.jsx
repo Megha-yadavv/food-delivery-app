@@ -1,49 +1,54 @@
-import {React, useRef} from "react";
+import React from "react";
 import { useState } from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
-  faCartShopping,faBars,faXmark
+  faCartShopping,
+  faBars,faHouse
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
+  const location = useLocation();
+ 
   const [menu, setMenu] = useState("Home");
-  const {cartTotal, totalItemInCart} = useContext(StoreContext);
-  const[showMenu, setShowMenu] = useState(true);
-  const[sideMenu, setSideMenu] = useState(false);
- const navigate = useNavigate();
- const navbarRef = useRef(null);
+  const {
+    cartTotal,
+    totalItemInCart,
+    sideMenu,
+    setSideMenu,
+    showMenu,
+    setShowMenu,
+  } = useContext(StoreContext);
 
   return (
-    <div className="navbar" id="navbar" ref={navbarRef}>
-      <Link to='/'>
+    <div className="navbar" id="navbar">
+      <Link to="/">
         <h2 className="logo">FlavourFusion.</h2>
-         <div className="menu-bar">
-          { showMenu?<FontAwesomeIcon icon={faBars} className="menu-button" onClick={()=>{setShowMenu(false);setSideMenu(true)}} />:''}
-         {sideMenu?<FontAwesomeIcon icon={faXmark} className="close-menu-button" onClick={()=>{setShowMenu(true);setSideMenu(false)} }/>:''}
-         </div>
       </Link>
-      <ul className={sideMenu?"side-menu":"navbar-menu"}>
-      <Link
-  onClick={() => {
-    setMenu("Home");
-    if (sideMenu) {
-      
-      navbarRef.current.scrollIntoView({ behavior: "smooth" }); 
-    } else {
-     
-      navigate('/');
-    }
-  }}
-  className={menu === "Home" ? "active" : ""}
->
-       
+     {location.pathname === "/" && showMenu && (
+        <FontAwesomeIcon
+          icon={faBars}
+          
+          className="menu-button"
+          onClick={() => {
+            setShowMenu(false);
+            setSideMenu(true);
+     }}
+        />
+      )}
+      {location.pathname === "/cart" &&(<Link to='/'> <FontAwesomeIcon icon={faHouse} className="house-icon"/></Link>)}
+
+      <ul className="navbar-menu">
+        <Link
+          to="/"
+          onClick={() => setMenu("Home")}
+          className={menu === "Home" ? "active" : ""}
+        >
           Home
-         
         </Link>
         <a
           href="#explore-menu"
@@ -73,7 +78,13 @@ const Navbar = ({ setShowLogin }) => {
           <Link to="/cart">
             <FontAwesomeIcon icon={faCartShopping} />
           </Link>
-         {cartTotal()?<Link to='/cart'><div className="dot">{totalItemInCart()}</div></Link>:<></>}
+          {cartTotal() ? (
+            <Link to="/cart">
+              <div className="dot">{totalItemInCart()}</div>
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
         <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>

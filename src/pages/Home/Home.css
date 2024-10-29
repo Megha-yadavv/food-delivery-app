@@ -1,0 +1,15 @@
+.menu-bar{
+    display: none;
+
+}
+@media (max-width: 750px){
+    .home{
+        position: relative;
+    }
+    .menu-bar{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
